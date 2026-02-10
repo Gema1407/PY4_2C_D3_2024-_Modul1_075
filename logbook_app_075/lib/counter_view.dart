@@ -105,6 +105,63 @@ class _CounterViewState extends State<CounterView> {
                   ],
                 ),
               ),
+              const SizedBox(height: 30),
+              // Log Aktivitas
+              const Text(
+                'Log Aktivitas',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: _controller.activityLogs.isEmpty
+                    ? const Center(
+                        child: Text(
+                          'Belum ada aktivitas',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: _controller.activityLogs.length > 5
+                            ? 5
+                            : _controller.activityLogs.length,
+                        reverse: true,
+                        itemBuilder: (context, index) {
+                          final logIndex =
+                              _controller.activityLogs.length - 1 - index;
+                          final message = _controller.activityLogs[logIndex];
+
+                          Color bgColor;
+                          if (message.contains('menambahkan')) {
+                            bgColor = Colors.green.shade100;
+                          } else if (message.contains('mengurangi')) {
+                            bgColor = Colors.red.shade100;
+                          } else {
+                            bgColor = Colors.yellow.shade100;
+                          }
+
+                          return Container(
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: bgColor,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              message,
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          );
+                        },
+                      ),
+              ),
             ],
           ),
         ),
