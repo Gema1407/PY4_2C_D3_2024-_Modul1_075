@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class CounterController {
   int _counter = 0; // Variabel private (Enkapsulasi)
   int _step = 1;
@@ -44,8 +46,32 @@ class CounterController {
     _addLog('decrement', decrementValue);
   }
 
-  void reset() {
-    _counter = 0;
-    _addLog('reset', 0);
-  }
+  void reset(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Konfirmasi Reset'),
+        content: const Text('Apakah Anda yakin ingin mereset hitungan ke 0?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Tutup dialog
+            },
+            child: const Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () {
+              _counter = 0;
+              _addLog('reset', 0);
+              Navigator.of(context).pop(); // Tutup dialog
+            },
+            child: const Text('Ya, Reset'),
+          ),
+        ],
+      );
+    },
+  );
 }
+}
+

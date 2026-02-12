@@ -48,7 +48,10 @@ class _CounterViewState extends State<CounterView> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: IconButton(
-                      onPressed: () => setState(() => _controller.reset()),
+                      onPressed: () {
+                        _controller.reset(context);
+                        setState(() {}); // Update UI setelah reset
+                      },
                       icon: const Icon(Icons.refresh, color: Colors.white),
                       iconSize: 30,
                     ),
