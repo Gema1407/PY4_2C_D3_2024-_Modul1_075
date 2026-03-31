@@ -10,7 +10,8 @@ class CounterController {
   List<String> get activityLogs => _activityLogs;
 
   void setStep(int newStep) {
-    _step = newStep;
+    if (newStep > 0) 
+        _step = newStep;
   }
 
   void _addLog(String type, int value) {
